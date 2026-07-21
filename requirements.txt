@@ -1,0 +1,14 @@
+# Core inference pipeline (detection, tracking, speed, video I/O)
+ultralytics==8.3.47
+torch==2.5.1
+torchvision==0.20.1
+opencv-python==4.10.0.84
+numpy==2.2.6
+pillow==10.4.0
+
+# Reliable H.264 video output (cv2's own encoders are unreliable on some builds)
+imageio==2.37.3
+imageio-ffmpeg==0.6.0
+
+# Only needed for dataset prep / training the make-model fingerprint
+scipy==1.14.0

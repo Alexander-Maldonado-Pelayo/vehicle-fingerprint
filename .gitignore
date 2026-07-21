@@ -1,0 +1,36 @@
+# Model weights (auto-downloaded / trained — don't commit)
+*.pt
+*.pth
+*.onnx
+
+# Datasets (downloaded separately, large)
+stanford_cars/
+veri/
+dataset/
+manifest.csv
+
+# Pipeline outputs
+output.mp4
+output.jpg
+output_*.mp4
+vehicles.csv
+
+# Sample media (optional — remove these lines if you want to commit a demo clip)
+*.mp4
+*.avi
+!demo.mp4
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Editor / OS
+.vscode/
+.qodo/
+.idea/
+.DS_Store
+Thumbs.db
