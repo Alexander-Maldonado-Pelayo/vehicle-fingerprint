@@ -104,7 +104,9 @@ depend on it.
 
 ## 🏷️ Training the make/model fingerprint (optional)
 
-The fingerprint model is not included (weights aren't committed). To train it:
+The fingerprint model is not included (weights aren't committed). See
+**[TRAINING.md](TRAINING.md)** for a step-by-step Google Colab guide (free GPU, ~30 min)
+using [`train_colab.py`](train_colab.py). In short:
 
 ```bash
 # 1. download a car dataset (e.g. Stanford Cars) and point prepare_dataset.py at it

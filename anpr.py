@@ -56,13 +56,14 @@ class Fingerprinter:
     def __init__(self, weights="fingerprint.pth"):
         ck = torch.load(weights, map_location=DEVICE)
         self.vocabs = ck["vocabs"]
+        self.attrs = list(self.vocabs.keys())     # adapt to whatever the model has
         self.model = VehicleFingerprint(ck["head_sizes"]).to(DEVICE)
         self.model.load_state_dict(ck["state_dict"]); self.model.eval()
     @torch.no_grad()
     def __call__(self, bgr):
         x = _tf(Image.fromarray(bgr[:, :, ::-1])).unsqueeze(0).to(DEVICE)
         out = self.model(x); res = {}
-        for a in ATTRS:
+        for a in self.attrs:
             p = out[a].softmax(1)[0]; c, i = p.max(0)
             res[a] = (self.vocabs[a][i], c.item())
         return res
@@ -127,10 +128,12 @@ def draw(img, box, tid, attrs, spd):
 
 # ---- main --------------------------------------------------------------
 def main(source):
+    global ATTRS
     det = YOLO("yolov8n.pt")
     # fingerprint is OPTIONAL: without a trained model, boxes are labeled "Car"
     if os.path.exists("fingerprint.pth"):
         fp = Fingerprinter()
+        ATTRS = fp.attrs            # CSV / panel / voting follow the model's attributes
     else:
         fp = None
         print("[note] fingerprint.pth not found -> running detection + speed only "
